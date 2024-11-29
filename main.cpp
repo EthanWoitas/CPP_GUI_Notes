@@ -1,16 +1,15 @@
-// Dear ImGui: standalone example application for DirectX 11
-
-// Learn about Dear ImGui:
-// - FAQ                  https://dearimgui.com/faq
-// - Getting Started      https://dearimgui.com/getting-started
-// - Documentation        https://dearimgui.com/docs (same as your local docs/ folder).
-// - Introduction, links and more at the top of imgui.cpp
+// Dear ImGui: Built off fo Directx11 exmple
+// Showcasing full screen deployment and back ground animations
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 #include <d3d11.h>
 #include <tchar.h>
+#include <math.h>
+#include <chrono> // For time tracking
+
+using Clock = std::chrono::steady_clock;
 
 // Data
 static ID3D11Device*            g_pd3dDevice = nullptr;
@@ -26,6 +25,7 @@ void CleanupDeviceD3D();
 void CreateRenderTarget();
 void CleanupRenderTarget();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 
 // Main code
 int main(int, char**)
@@ -84,10 +84,24 @@ int main(int, char**)
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
+    // Variables for window elements
     bool test_bool = false;
-    int test_int = 10;
+    int test_int = 0;
 
-    io = ImGui::GetIO();
+    auto start_time = Clock::now();
+    int duration = 1500; // Milliseconds for intro anim
+
+    int red_one = 0;
+    int green_one = 0;
+    int blue_one = 0;
+    int opacity_one;
+
+    int red_two = 0;
+    int green_two = 0;
+    int blue_two = 0;
+    int opacity_two;
+
+    int color_modifier = 5;
 
     // Main loop
     bool done = false;
@@ -131,7 +145,7 @@ int main(int, char**)
         // Setting the size of the window to fill out the ImGui frame
         // Check out https://github.com/ocornut/imgui/issues/3541 to see how to implement the repainting it self while resizing
         ImGui::SetNextWindowPos(ImVec2(0.0, 0.0));
-        ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y));
+        ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y)); // ImGuiIO& io = ImGui::GetIO(); (void)io; declared before hand
 
         // Creates a window called "Test" inside the ImGui frame
         if (ImGui::Begin("Test", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
@@ -162,9 +176,16 @@ int main(int, char**)
             {
                 test_bool = true;
             }
-            ImGui::Text("Int"); // Text object 
-            ImGui::SliderInt("Coolness Counter", &test_int, 0, 100); // Integer slider that goes between 0 and 100
 
+            ImGui::Text("Gradient Int Anim Value Test"); // Text object 
+            ImGui::SliderInt("Coolness Counter", &test_int, 0, 5000); // Integer slider that goes between 0 and 100
+
+            auto current_time = Clock::now();
+            auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(current_time - start_time).count();
+            if (elapsed_time < duration)
+            {
+                test_int = (test_int + color_modifier) % 5000;
+            }
             ImGui::SetCursorPosX(175.0);
             if (ImGui::Button("Custom Button", ImVec2(150.0, 50.0)))
             {

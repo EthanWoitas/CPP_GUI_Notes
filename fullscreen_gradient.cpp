@@ -1,9 +1,12 @@
-// Dear ImGui: Built off fo Directx11 exmple
-// Showcasing full screen deployment and back ground animations
+// Dear ImGui: Built off of Directx11 example showcasing..
+// - Full screen deployment
+// - Background animations with gradient and opacity transitions
+// - Primitive display and interactive elements
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
+#include <iostream>
 #include <d3d11.h>
 #include <tchar.h>
 #include <math.h>
@@ -89,17 +92,17 @@ int main(int, char**)
     int test_int = 0;
 
     auto start_time = Clock::now();
-    int duration = 1500; // Milliseconds for intro anim
+    int duration = 3000; // Milliseconds for intro anim
 
     int red_one = 0;
     int green_one = 0;
     int blue_one = 0;
-    int opacity_one;
+    int opacity_one = 0;
 
     int red_two = 0;
     int green_two = 0;
     int blue_two = 0;
-    int opacity_two;
+    int opacity_two = 0;
 
     int color_modifier = 5;
 
@@ -178,19 +181,22 @@ int main(int, char**)
             }
 
             ImGui::Text("Gradient Int Anim Value Test"); // Text object 
-            ImGui::SliderInt("Coolness Counter", &test_int, 0, 5000); // Integer slider that goes between 0 and 100
+            ImGui::SliderInt("Debug Slider", &test_int, 0, duration); // Integer slider to showcase how test_int updates
 
             auto current_time = Clock::now();
             auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(current_time - start_time).count();
             if (elapsed_time < duration)
             {
-                test_int = (test_int + color_modifier) % 5000;
+                test_int = duration - elapsed_time;
             }
-            ImGui::SetCursorPosX(175.0);
+
+            ImGui::SetCursorPosX(250.0);
             if (ImGui::Button("Custom Button", ImVec2(150.0, 50.0)))
             {
-
+                
             }
+
+            std::cout << elapsed_time << "\n";
 
         }ImGui::End();
 

@@ -31,6 +31,7 @@ int main(int argc, char* argv[])
     }
 
     SDL_DestroyWindow(window); // Frees up the memory that was initilaized by SDL_Window* window
+    window = NULL;             // Avoiding a dangling pointer and setting window to NULL.
     SDL_Quit();                // Properly frees up resources and shuts down anything initialied by SDL_Init()
 
     return 1;

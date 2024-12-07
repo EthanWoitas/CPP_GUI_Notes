@@ -16,6 +16,7 @@ public:
     void render();
     void clean();
 
+    int refresh = 0;
     bool running();
 
 private:

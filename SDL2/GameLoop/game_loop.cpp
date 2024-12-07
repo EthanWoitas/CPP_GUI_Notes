@@ -34,7 +34,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
     }
     std::cout << "Window successfully created..." << std::endl;
 
-    renderer = SDL_CreateRenderer(window, -1, 0);                               // Create a renderer the the window passed as an argument to render textures
+    renderer = SDL_CreateRenderer(window, -1, 0);                               // Create a renderer, passes window as an argument to render textures
     if(!renderer)
     {
         std::cout << "Error creating renderer..."  << SDL_GetError() << std::endl;
@@ -47,7 +47,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
     isRunning = true;                                                           // Sets the game loop driver to all systems go *Puts on sunglasses*
 }
 
-void Game::eventHandler()
+void Game::eventHandler()   // Event handler that upon every loop cheacks for events such as player input
 {
     SDL_Event event;
     SDL_PollEvent(&event);
@@ -62,14 +62,15 @@ void Game::eventHandler()
 
 void Game::update()
 {
-
+    std::cout << refresh << std::endl;  // Prints each iteration of a loop while game->running
+    refresh++;
 }
 
 void Game::render()
 {
-    SDL_RenderClear(renderer);
+    SDL_RenderClear(renderer);      // Clears the current rendering target
     
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer);    // Displays the frame
 }
 
 void Game::clean()

@@ -73,7 +73,7 @@ void Game::render()
     SDL_RenderPresent(renderer);    // Displays the frame
 }
 
-void Game::clean()
+void Game::clean() 
 {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);

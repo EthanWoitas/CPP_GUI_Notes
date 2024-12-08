@@ -1,5 +1,7 @@
 #include "Headers/game_loop.h"
 
+SDL_Renderer* Game::renderer = nullptr;
+
 Game::Game()
 {
 

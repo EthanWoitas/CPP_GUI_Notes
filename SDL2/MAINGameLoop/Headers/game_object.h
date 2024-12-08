@@ -7,7 +7,7 @@
 class GameObject{
 
 public:
-    GameObject(const char* textureSheet, SDL_Renderer* renderer, int x, int y); 
+    GameObject(const char* textureSheet, int x, int y); 
     ~GameObject();
 
     void Update();  // Func to update attributes of the object
@@ -19,7 +19,6 @@ public:
 private:
     SDL_Texture* objTexture;    // Texture to be loaded in from textureSheet 
     SDL_Rect srcR, destR;       // Establish the source and destination rectangles 
-    SDL_Renderer* renderer;     // Renderer to be used passed in from SDL_Renderer* render
 };
 
 #endif

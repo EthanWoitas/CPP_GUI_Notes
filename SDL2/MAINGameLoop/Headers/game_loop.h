@@ -17,6 +17,8 @@ public:
     void render();
     void clean();
 
+    static SDL_Renderer* renderer;
+
     int refresh = 0; // Amount of time the loop has executed 
     int FPS = 60;   // The current frame rate
     int frameDelay = 1000 / FPS;    // Milliseconds per frame
@@ -42,7 +44,6 @@ public:
 private:
     bool isRunning;
     SDL_Window* window;
-    SDL_Renderer* renderer;
 };
 
 #endif 

@@ -1,16 +1,15 @@
 #include "Headers/game_loop.h"
 #include "Headers/game_object.h"
 
-GameObject::GameObject(const char* textureSheet, SDL_Renderer* ren, int x, int y) 
+GameObject::GameObject(const char* textureSheet, int x, int y) 
 {
-    renderer = ren; // Renderer created
-    objTexture = TextureManager::LoadTexture(textureSheet, ren); // Load texture 
+    objTexture = TextureManager::LoadTexture(textureSheet); // Load texture 
 
     posX = x;   // Starting X and Y are arguments passed in
     posY = y;
 }
 
-void GameObject::Update() // Update the source and destination rectangle upon refresh
+void GameObject::Update() // Update the source and destination rectangle upon
 {
     srcR.h = 32;    
     srcR.w = 32;
@@ -25,5 +24,5 @@ void GameObject::Update() // Update the source and destination rectangle upon re
 
 void GameObject::Render()
 {
-    SDL_RenderCopy(renderer, objTexture, &srcR, &destR);
+    SDL_RenderCopy(Game::renderer, objTexture, &srcR, &destR);
 }

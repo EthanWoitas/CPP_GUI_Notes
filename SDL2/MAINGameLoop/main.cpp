@@ -6,7 +6,7 @@ int main(int argc, const char* argv[])
 {
     game = new Game();
 
-    game->init("LoremIpsum", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, false);
+    game->init("LoremIpsum", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
     while (game->running())
     {
         game->startFrame();
